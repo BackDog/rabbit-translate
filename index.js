@@ -1,12 +1,13 @@
 const express = require('express');
-const { webkit } = require('playwright');
+const { chromium } = require("playwright-chromium");
 
 const app = express();
 
 console.log('Starting Server...');
 
 (async () => {
-    const browser = await webkit.launch();
+    const browser = await chromium.launch();
+    const context = await browser.newContext();
 
     app.get('/translate', function (req, res) {
         console.log('Translate ' + req.query.text);
@@ -15,7 +16,7 @@ console.log('Starting Server...');
 
     async function translate(text, res) {
         try{
-            const googleTranslate = await browser.newPage();
+            const googleTranslate = await context.newPage();
             await googleTranslate.goto('https://translate.google.com.vn/?hl=vi&sl=vi&tl=en&op=translate');
             await googleTranslate.waitForLoadState('networkidle');
             await googleTranslate.locator('textarea[aria-label="Văn bản nguồn"]').fill(text);
