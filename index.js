@@ -9,3 +9,5 @@ app.get('/translate', function (req, res) {
     console.log('Translate ' + req.query.text);
     res.send(req.query.text);
 })
+
+app.listen(3000);
