@@ -3,7 +3,7 @@ const { chromium } = require("playwright-chromium");
 
 const app = express();
 
-console.log('Starting Server...');
+console.log('Starting Server....');
 
 (async () => {
     const browser = await chromium.launch();
